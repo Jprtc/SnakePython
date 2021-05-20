@@ -9,18 +9,17 @@ dis_height = 600
 
 dis = pygame.display.set_mode((dis_width,dis_height)) #dis = display e tamanho do display
 #pygame.display.update()
-pygame.display.set_caption('Jogo da cobrinha na cobrinha, ta em shokk?')
+pygame.display.set_caption('Jogo da cobrinha na cobrinha, João Pedro de Rossi')
 
-blue = (0,0,255) #RGB
+blue = (0,0,255) #RGB 
+lightBlue = (51,204,255)  
 red = (255,0,0) #RGB
 black = (0,0,0)
 white = (255,255,255)
 yellow = (255,255,0)
 green = (0,128,0)
 
-snakeSpeed = 20
 snakeSize = 20
-
 
 font_style = pygame.font.SysFont("timesnewsroman",25)
 score_font = pygame.font.SysFont("comicsansms", 30)
@@ -37,18 +36,16 @@ def message(msg,color):
     mesg = font_style.render(msg, True,color)
     dis.blit(mesg,[dis_width/6, dis_height/3])
 
-def generateFood(foodX,foodY):
-    foodX = round(random.randrange(0,dis_width - snakeSize)/10.0)*10.0
-    foodY = round(random.randrange(0,dis_height - snakeSize)/10.0)*10.0
-    Length_of_snake +=1
-    print("Yummy!")
 
 def gameLoop():
     game_over = False
     game_close = False
 
-    foodX = round(random.randrange(0,dis_width - snakeSize)/10.0)*10.0
-    foodY = round(random.randrange(0,dis_height - snakeSize)/10.0)*10.0
+    foodX = round(random.randrange(0,dis_width - snakeSize+5)/10.0)*10.0
+    foodY = round(random.randrange(0,dis_height - snakeSize+5)/10.0)*10.0
+
+    foodZ = round(random.randrange(0,dis_width - snakeSize+5)/10.0)*10.0
+    foodW = round(random.randrange(0,dis_height - snakeSize+5)/10.0)*10.0
 
     x1 = dis_width/2
     y1 = dis_height/2
@@ -59,14 +56,16 @@ def gameLoop():
     snake_List = []
     Length_of_snake = 1
 
-    foodCount = 0
+    #foodCount = 0
+    snakeSpeed = 20
+    
 
     clock = pygame.time.Clock()
 
     while not game_over:
         
         while game_close == True:
-            dis.fill(blue)
+            dis.fill(lightBlue)
             message("Game over! Aperte R para jogar novamente, Q para fechar.", black)
             Player_score(Length_of_snake -1)
 
@@ -101,10 +100,10 @@ def gameLoop():
         #scrolling across the screen when reaching the screen maximum size
         if x1 >= dis_width:
             x1 = 0
-        elif x1<=0:
-            x1 = 800
+        elif x1<= 0:
+            x1 = dis_width
         elif y1 <= 0:
-            y1 = 600
+            y1 = dis_height
         elif y1 >= dis_height:
             y1 = 0
 
@@ -115,6 +114,8 @@ def gameLoop():
         dis.fill(white)
         #pygame.draw.rect(dis,red,[x1,y1,snakeSize,snakeSize])
         pygame.draw.rect(dis,blue,[foodX,foodY,snakeSize,snakeSize])
+        pygame.draw.rect(dis,green,[foodZ,foodW,snakeSize,snakeSize])
+        
         
 
         snake_Head = []
@@ -136,9 +137,26 @@ def gameLoop():
         if x1 == foodX and y1 == foodY:
             foodX = round(random.randrange(0,dis_width - snakeSize)/10.0)*10.0
             foodY = round(random.randrange(0,dis_height - snakeSize)/10.0)*10.0
-            
+
             Length_of_snake +=1
+
+            if snakeSpeed <39:
+                snakeSpeed +=1
+
             print("Yummy!")
+            print('Speed =',snakeSpeed)
+
+        if x1 == foodZ and y1 == foodW:
+            foodZ = round(random.randrange(0,dis_width - snakeSize)/10.0)*10.0
+            foodW = round(random.randrange(0,dis_height - snakeSize)/10.0)*10.0
+
+            Length_of_snake +=1
+
+            if snakeSpeed<39:
+                snakeSpeed +=1
+
+            print("Yummy!")
+            print('Speed =',snakeSpeed)
 
         clock.tick(snakeSpeed) #update speed
         

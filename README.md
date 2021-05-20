@@ -1,2 +1,2 @@
 # SnakePython
-Simple Snake made in Python
+Simple Snake game made in Python
