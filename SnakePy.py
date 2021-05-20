@@ -143,8 +143,8 @@ def gameLoop():
             if snakeSpeed <39:
                 snakeSpeed +=1
 
-            print("Yummy!")
-            print('Speed =',snakeSpeed)
+            #print("Yummy!")
+            #print('Speed =',snakeSpeed)
 
         if x1 == foodZ and y1 == foodW:
             foodZ = round(random.randrange(0,dis_width - snakeSize)/10.0)*10.0
@@ -155,8 +155,8 @@ def gameLoop():
             if snakeSpeed<39:
                 snakeSpeed +=1
 
-            print("Yummy!")
-            print('Speed =',snakeSpeed)
+            #print("Yummy!")
+            #print('Speed =',snakeSpeed)
 
         clock.tick(snakeSpeed) #update speed
         
